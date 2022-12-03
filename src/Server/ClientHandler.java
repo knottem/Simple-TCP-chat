@@ -1,11 +1,15 @@
 package Server;
 
+import Client.ClientV2;
+
 import java.io.*;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class ClientHandler implements Runnable{
+import static utility.tools.closingEverything;
+
+public class ClientHandler extends Thread {
 
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
     private Socket socket;
@@ -74,18 +78,6 @@ public class ClientHandler implements Runnable{
 
     public void closeEverything(Socket socket, BufferedReader bufferedReader, PrintWriter printWriter){
         removeClientHandler();
-        try{
-            if(bufferedReader != null){
-                bufferedReader.close();
-            }
-            if(printWriter != null){
-                printWriter.close();
-            }
-            if(socket != null){
-                socket.close();
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        closingEverything(socket, bufferedReader, printWriter);
     }
 }

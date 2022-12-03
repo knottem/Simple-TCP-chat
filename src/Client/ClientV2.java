@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import static utility.tools.closingEverything;
+
 
 public class ClientV2 {
 
@@ -98,20 +100,8 @@ public class ClientV2 {
     }
 
     public void closeEverything(Socket socket, BufferedReader bufferedReader, PrintWriter printWriter){
-        try{
-              if(bufferedReader != null){
-                  bufferedReader.close();
-              }
-              if(printWriter != null){
-                  printWriter.close();
-              }
-              if(socket != null){
-                  socket.close();
-              }
-          }catch (IOException e){
-              e.printStackTrace();
-          }
-      }
+        closingEverything(socket, bufferedReader, printWriter);
+    }
 
     public void setupWindow(String username){
 

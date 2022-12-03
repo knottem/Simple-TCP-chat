@@ -5,6 +5,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
+import static utility.tools.closingEverything;
+
 
 public class Client {
 
@@ -88,20 +90,8 @@ public class Client {
 
     public void closeEverything(Socket socket, BufferedReader bufferedReader, PrintWriter printWriter){
         jTextArea.append("\n You've been disconnected");
-        try{
-              if(bufferedReader != null){
-                  bufferedReader.close();
-              }
-              if(printWriter != null){
-                  printWriter.close();
-              }
-              if(socket != null){
-                  socket.close();
-              }
-          }catch (IOException e){
-              e.printStackTrace();
-          }
-      }
+        closingEverything(socket, bufferedReader, printWriter);
+    }
 
     public void setupWindow(String username){
 

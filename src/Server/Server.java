@@ -8,21 +8,20 @@ public class Server {
 
     static final int port = 12345;
     private final ServerSocket serverSocket;
-    private int counter = 0;
 
     public Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
 
     public void startServer(){
+        int counter = 0;
         try{
             while(true){
                 Socket socket = serverSocket.accept();
                 counter++;
                 System.out.println("A new client has connected: " + socket.getInetAddress().getHostName() + " Nr: " + counter);
                 ClientHandler clientHandler = new ClientHandler(socket);
-                Thread thread = new Thread(clientHandler);
-                thread.start();
+                clientHandler.start();
             }
         } catch (IOException e) {
             e.printStackTrace();
